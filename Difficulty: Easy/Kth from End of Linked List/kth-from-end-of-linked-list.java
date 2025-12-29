@@ -13,27 +13,51 @@ class Solution {
     int getKthFromLast(Node head, int k) {
         // Your code here
         
-        int size = 0;
+        // int size = 0;
         
-        Node temp = head;
-        while (temp != null){
-            size++;
-            temp = temp.next;
-        }
+        // Node temp = head;
+        // while (temp != null){
+        //     size++;
+        //     temp = temp.next;
+        // }
         
-        if (k > size) return -1;
+        // if (k > size) return -1;
         
-        int count = 1;
-        temp = head;
+        // int count = 1;
+        // temp = head;
         
-        while (count != (size - k + 1)){
-            if (count == (size - k + 1)){
-                break;
+        // while (count != (size - k + 1)){
+        //     if (count == (size - k + 1)){
+        //         break;
+        //     }
+        //     count++;
+        //     temp = temp.next;
+        // }
+        
+        // return temp.data;
+        
+        
+        
+        
+        Node slow = head;
+        Node fast = head;
+        int i = 1;
+        while (i<=k){
+            if (fast == null){
+                return -1;
             }
-            count++;
-            temp = temp.next;
+            fast = fast.next;
+            i++;
         }
         
-        return temp.data;
+        
+        while (fast != null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        return slow.data;
+        
+        
     }
 }

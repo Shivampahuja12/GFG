@@ -2,24 +2,29 @@ class Solution {
     public boolean isBalanced(String s) {
         // code here
         Stack<Character> st = new Stack<>();
-        
         for (int i=0; i<s.length(); i++){
             char ch = s.charAt(i);
-            if (ch == '[' || ch == '{' || ch == '('){
+            if (ch == '(' ||  ch == '{' || ch == '['){
                 st.push(ch);
             }
-            
             else {
-                if (st.isEmpty()) return false;
-                
-                char top = st.pop();
-                if ((ch == ')' && top != '(') || (ch == '}' && top != '{') || (ch == ']' && top != '[')){
+                if ((ch == '}' ||  ch == ']' || ch == ')') && st.isEmpty()){
                     return false;
+                }
+                else if ((ch == ')' && st.peek() != '(')|| (ch == '}' && st.peek() != '{') || (ch == ']' && st.peek() != '[')){
+                  return false;  
+                }
+                else if (ch == ')' && st.peek() == '('){
+                    st.pop();
+                }
+                else if (ch == ']' && st.peek() == '['){
+                    st.pop();
+                }
+                else if (ch == '}' && st.peek() == '{'){
+                    st.pop();
                 }
             }
         }
-        
         return st.isEmpty();
-        
     }
 }

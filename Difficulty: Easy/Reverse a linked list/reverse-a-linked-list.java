@@ -13,18 +13,16 @@ class Node {
 class Solution {
     Node reverseList(Node head) {
         // code here
-        
-        if (head == null) return head;
-        
-        Node temp = head;
         Node prev = null;
-        while (temp != null){
-            Node node = temp.next;
-            temp.next = prev;
-            prev = temp;
-            temp = node;
+        Node curr = head;
+        while (curr != null){
+            Node temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
         }
         
-        return prev;
+        head = prev;
+        return head;
     }
 }

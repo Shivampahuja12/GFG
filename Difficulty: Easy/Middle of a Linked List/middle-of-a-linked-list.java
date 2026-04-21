@@ -11,16 +11,27 @@ class Node {
 
 class Solution {
     int getMiddle(Node head) {
-        int length=0;
-        Node fast=head;
-        while(fast!=null){
-            fast=fast.next;
-            length++;
+        // code here
+        if (head.next == null){
+            return head.data;
         }
-        fast=head;
-        for(int i=1;i<=length/2;i++){
-            fast=fast.next;
+        
+        Node temp = head;
+        int count = 0;
+        
+        while (temp != null){
+            temp = temp.next;
+            count++;
         }
-        return fast.data;
+        
+        int i = 1;
+        temp = head;
+        
+        while (i < (count/2) + 1){
+            temp = temp.next;
+            i++;
+        }
+        
+        return temp.data;
     }
 }

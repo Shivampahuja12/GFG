@@ -11,36 +11,35 @@ class Node {
 
 class Solution {
     public boolean isPalindrome(Node head) {
+        // code here
         Node slow = head;
         Node fast = head;
-        
         while (fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
-        
-        Node secondList = slow;
-        Node prev = null;
-        
-        while (secondList != null){
-            Node node = secondList.next;
-            secondList.next = prev;
-            prev = secondList;
-            secondList = node;
-        }
-        
-        Node first = head;
-        Node second = prev;
-        
-        while (second != null){
-            
-            if (first.data != second.data){
+        Node newHead = slow;
+        slow = head;
+        newHead = reverse(newHead);
+        while (newHead != null){
+            if (slow.data != newHead.data){
                 return false;
             }
-            
-            first = first.next;
-            second = second.next;
+            slow = slow.next;
+            newHead = newHead.next;
         }
         return true;
+    }
+    
+    public Node reverse(Node head){
+        Node prev = null;
+        Node curr = head;
+        while (curr != null){
+            Node temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
     }
 }

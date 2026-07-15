@@ -1,26 +1,35 @@
 class Solution {
 	static List<Integer> firstNegInt(int arr[], int k) {
-	    
-		List<Integer> ans = new ArrayList<>();
+		int n = arr.length;
+		List<Integer> list = new ArrayList<>();
 		Queue<Integer> q = new LinkedList<>();
-		
-		for (int i = 0; i<arr.length; i++) {
+		int i = 0;
+		int j = 0;
+		while (j < n) {
+		    
+			if (arr[j] < 0) {
+				q.add(arr[j]);
+			}
 			
-			// Store index of negative numbers
-			if (arr[i] < 0) q.add(i);
-			
-			// Window starts after reaching size k
-			if (i >= k - 1) {
-				
-				// Remove indices outside current window
-				while (!q.isEmpty() && q.peek() < i - k + 1) {
-					q.poll();
+			if (j - i + 1 < k) {
+				j++;
+			}
+			else if (j - i + 1 == k) {
+				if (q.isEmpty())
+					list.add(0);
+				else if (arr[i] == q.peek()) {
+					list.add(q.poll());
+				}
+				else {
+				    list.add(q.peek());
 				}
 				
-				if (q.isEmpty()) ans.add(0);
-				else ans.add(arr[q.peek()]);
+				j++;
+			    i++;
+			    
+
 			}
 		}
-		return ans;
+		return list;
 	}
 }

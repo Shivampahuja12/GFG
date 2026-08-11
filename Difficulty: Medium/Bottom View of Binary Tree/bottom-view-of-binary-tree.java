@@ -22,7 +22,7 @@ class Pair {
 }
 class Solution {
 	public ArrayList<Integer> bottomView(Node root) {
-		Map<Integer, Integer> map = new HashMap<>();
+		Map<Integer, Integer> map = new TreeMap<>();
 		Queue<Pair> q = new LinkedList<>();
 		q.offer(new Pair(root, 0));
 		while (!q.isEmpty()) {
@@ -39,8 +39,7 @@ class Solution {
 			}
 		}
 		ArrayList<Integer> list = new ArrayList<>();
-		Map<Integer, Integer> treeMap = new TreeMap<>(map);
-		for (Map.Entry<Integer, Integer> entry: treeMap.entrySet()) {
+		for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
 			list.add(entry.getValue());
 		}
 		return list;

@@ -3,23 +3,24 @@ class Solution {
 		// code here
 		int n = val.length;
 		int t[][] = new int[n + 1][W + 1];
-		for (int[] arr: t) {
-			Arrays.fill(arr, -1);
+		// Initialization
+		for (int i = 0; i <= n; i++) {
+			for (int j = 0; j <= W; j++) {
+				if (i == 0 || j == 0) {
+					t[i][j] = 0;
+				}
+			}
 		}
-		return ks(W, val, wt, n, t);
-	}
-	
-	public int ks(int w, int val[], int wt[], int n, int[][] t) {
-		if (n == 0 || w == 0) {
-			return 0;
+		// Filling the DP table
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= W; j++) {		
+				if (wt[i - 1] <= j) {
+					t[i][j] = Math.max(val[i - 1] + t[i - 1][j - wt[i - 1]], t[i - 1][j]);
+				} else {
+					t[i][j] = t[i - 1][j];
+				}
+			}
 		}
-		if (t[n][w] != -1) {
-			return t[n][w];
-		}
-		if (wt[n - 1] <= w) {
-			return t[n][w] = Math.max(val[n - 1] + ks(w - wt[n - 1], val, wt, n - 1, t), ks(w, val, wt, n - 1, t));
-		} else { // else if (wt[n - 1] > w)
-			return t[n][w] = ks(w, val, wt, n - 1, t);
-		}
+		return t[n][W];
 	}
 }

@@ -1,27 +1,22 @@
 class Solution {
 	public int minCoins(int coins[], int sum) {
-		// code here
 		int n = coins.length;
-		int[][] t = new int[n + 1][sum + 1];
-		for (int i = 0; i <= n; i++) {
-			for (int j = 0; j <= sum; j++) {
-				if (i == 0)
-					t[i][j] = (int) 1e9;
-				if (j == 0)
-					t[i][j] = 0;
-			}
+		int[][] t = new int[n+1][sum+1];
+		for (int[] i: t){
+		    Arrays.fill(i, -1);
 		}
-		
-		for (int i = 1; i <= n; i++) {
-			for (int j = 1; j <= sum; j++) {
-				if (coins[i - 1] <= j) {
-					t[i][j] = Math.min(1 + t[i][j - coins[i - 1]], t[i - 1][j]);
-				} else {
-					t[i][j] = t[i - 1][j];
-				}
-			}
+		int result = cc(coins, n - 1, sum, t);
+		return result == (int) 1e9 ? -1 : result;
+	}
+	
+	public int cc(int coins[], int n, int sum, int[][] t) {
+		if (sum == 0) return 0;
+		if (n < 0) return (int) 1e9;
+		if (t[n][sum] != -1) return t[n][sum];
+		if (coins[n] <= sum) {
+			return t[n][sum] = Math.min(1 + cc(coins, n, sum - coins[n], t), cc(coins, n - 1, sum, t));
+		} else {
+			return t[n][sum] = cc(coins, n - 1, sum, t);
 		}
-		
-		return t[n][sum] >= (int) 1e9 ? -1 : t[n][sum];
 	}
 }

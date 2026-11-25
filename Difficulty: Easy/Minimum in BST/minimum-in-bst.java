@@ -14,17 +14,14 @@ class Node {
 class Solution {
     public int minValue(Node root) {
         // code here
-        int min = Integer.MAX_VALUE;
-        int[] a = {min};
-        min(root, a);
-        return a[0];
+        if (root == null) return -1;
+        int[] ans = new int[1];
+        min(root, ans);
+        return ans[0];
     }
     
-    public void min(Node root, int[] a){
-        if (root == null) return;
-        if (root.data < a[0]){
-            a[0] = root.data;
-        } 
-        min(root.left, a);
+    public void min(Node root, int[] ans){
+        ans[0] = root.data;
+        if (root.left != null) min(root.left, ans);
     }
 }
